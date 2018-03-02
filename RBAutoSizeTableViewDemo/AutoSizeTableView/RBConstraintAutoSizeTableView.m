@@ -38,14 +38,11 @@
 - (void)setupBaseData{
     
     self.titles = [[NSMutableArray alloc] init];
-    NSArray *unitList = [RBTitleConstrant getTitleUnitList];
-    NSUInteger i = kRBCellNumbers/[unitList count];
-    NSUInteger j = kRBCellNumbers%[unitList count];
-    for(int k = 0; k < i; k++){
+    NSInteger wholeTitleLength = RBTitle.length;
+    for(int i = 0; i < kRBCellNumbers; i++){
         
-        [self.titles addObjectsFromArray:[RBTitleConstrant getTitleUnitList]];
+        [self.titles addObject:[RBTitle substringToIndex:arc4random()%(wholeTitleLength+1)]];
     }
-    [self.titles addObjectsFromArray:[unitList subarrayWithRange:NSMakeRange(0, j)]];
 }
 
 - (void)buildData{
