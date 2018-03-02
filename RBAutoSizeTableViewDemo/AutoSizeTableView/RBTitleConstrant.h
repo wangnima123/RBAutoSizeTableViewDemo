@@ -11,7 +11,7 @@
 //Cell个数
 #define kRBCellNumbers     10000
 //统计样本总量
-#define kRBCodeExcuteTimes 1000
+#define kRBCodeExcuteTimes 1
 #define kRBScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define kRBScreenHeight [UIScreen mainScreen].bounds.size.height
 #define kRBTextFont     [UIFont systemFontOfSize:14.0f]

@@ -50,16 +50,16 @@
 
 - (void)buildData{
     
-    double allExTime = 0.0f;
-    for(int i = 0; i < kRBCodeExcuteTimes; i ++){
-        [self setupBaseData];
-        CFAbsoluteTime startTime =CFAbsoluteTimeGetCurrent();
-        [self reloadData];
-        CFAbsoluteTime excuteTime = (CFAbsoluteTimeGetCurrent() - startTime);
-        NSLog(@"约束自适应的加载时间 %f ms", (double)excuteTime*1000.0);
-        allExTime += ((double)excuteTime*1000.0);
-    }
-    NSLog(@"约束自适应的平均加载时间 %f ms", allExTime/kRBCodeExcuteTimes);
+    //    double allExTime = 0.0f;
+    //    for(int i = 0; i < kRBCodeExcuteTimes; i ++){
+    [self setupBaseData];
+    CFAbsoluteTime startTime =CFAbsoluteTimeGetCurrent();
+    [self reloadData];
+    CFAbsoluteTime excuteTime = (CFAbsoluteTimeGetCurrent() - startTime);
+    NSLog(@"约束自适应的加载时间 %f ms", (double)excuteTime*1000.0);
+    //        allExTime += ((double)excuteTime*1000.0);
+    //    }
+    //    NSLog(@"约束自适应的平均加载时间 %f ms", allExTime/kRBCodeExcuteTimes);
 }
 
 #pragma mark -
