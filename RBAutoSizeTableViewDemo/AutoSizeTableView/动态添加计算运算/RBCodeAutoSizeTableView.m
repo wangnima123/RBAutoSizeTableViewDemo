@@ -14,6 +14,8 @@
 @interface RBCodeAutoSizeTableView()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong)NSMutableArray *titles;
 @property (nonatomic, strong)NSDictionary *imageDict;
+@property (nonatomic, strong)NSMutableArray *tempTitles;
+@property (nonatomic, assign)NSUInteger maxCellIndex;
 @end
 
 @implementation RBCodeAutoSizeTableView
@@ -29,19 +31,28 @@
     return self;
 }
 
+#pragma mark -
+#pragma mark lazy load
+- (void)setMaxCellIndex:(NSUInteger)maxCellIndex{
+    
+    _maxCellIndex = MAX(_maxCellIndex, maxCellIndex);
+}
+
+
 - (void)buildData{
     
-    double allExTime = 0.0f;
-    for(int i = 0; i < kRBCodeExcuteTimes; i ++){
-        [self setupBaseData];
-        [self convertDataToModel];
-        CFAbsoluteTime startTime =CFAbsoluteTimeGetCurrent();
-        [self reloadData];
-        CFAbsoluteTime excuteTime = (CFAbsoluteTimeGetCurrent() - startTime);
-        NSLog(@"代码自适应的加载时间 %f ms", (double)excuteTime*1000.0);
-        allExTime += ((double)excuteTime*1000.0);
-    }
-    NSLog(@"代码自适应的平均加载时间 %f ms", allExTime/kRBCodeExcuteTimes);
+    //    double allExTime = 0.0f;
+    //    for(int i = 0; i < kRBCodeExcuteTimes; i ++){
+    [self setupBaseData];
+    [self convertDataToModel];
+    [self estimateCellHeight];
+    CFAbsoluteTime startTime =CFAbsoluteTimeGetCurrent();
+    [self reloadData];
+    CFAbsoluteTime excuteTime = (CFAbsoluteTimeGetCurrent() - startTime);
+    NSLog(@"代码自适应的加载时间 %f ms", (double)excuteTime*1000.0);
+    //        allExTime += ((double)excuteTime*1000.0);
+    //    }
+    //    NSLog(@"代码自适应的平均加载时间 %f ms", allExTime/kRBCodeExcuteTimes);
 }
 
 - (void)convertDataToModel{
@@ -52,6 +63,26 @@
         titleModel.titleLabelHeight = 0.0f;
         [self.titles replaceObjectAtIndex:idx withObject:titleModel];
     }];
+    self.tempTitles = [self.titles copy];
+    self.titles = [[NSMutableArray alloc] init];
+}
+
+- (void)estimateCellHeight{
+    
+    CGFloat allHeight = 0.0;
+    for(NSUInteger i = self.maxCellIndex; i < self.tempTitles.count; i++){
+        RBTitleModel *model = self.tempTitles[i];
+        [model calculateTitleWidth];
+        allHeight += model.titleLabelHeight;
+        [self.titles addObject:model];
+        if(allHeight > self.frame.size.height*2) break;
+        NSLog(@"%@", self.titles);
+    }
+}
+
+- (void)caculateLabelHeightWithModel:(RBTitleModel *)model{
+    
+    [model calculateTitleWidth];
 }
 
 - (void)setupBaseData{
@@ -80,16 +111,31 @@
     if(!cell){
         cell = [[RBAutoSizeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:autoSizeTableViewCellID];
     }
-    //动态计算当前cell的高度
-    RBTitleModel *titleModel = [self.titles objectAtIndex:indexPath.row];
-    [titleModel calculateTitleWidth];
-    
+//    RBTitleModel *model = [self.titles objectAtIndex:indexPath.row];
+//    [model calculateTitleWidth];
     [cell buildData:self.titles[indexPath.row]];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    self.maxCellIndex = indexPath.row + 1;
+    if(self.titles.count <= self.maxCellIndex + 1){
+        NSUInteger originTitleCount = self.titles.count;
+        [self estimateCellHeight];
+        NSUInteger currentTitleCount = self.titles.count;
+        [self insertRowsAtIndexPaths:[self getIndexPathsWithOriginIndex:originTitleCount andCurrentIndex:currentTitleCount] withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
+
+- (NSArray *)getIndexPathsWithOriginIndex:(NSUInteger)originIndex andCurrentIndex:(NSUInteger)currentIndex{
+    
+    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+    for(NSUInteger i = originIndex; i < currentIndex; i++){
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        [indexPaths addObject:indexPath];
+    }
+    return indexPaths;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

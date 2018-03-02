@@ -21,6 +21,7 @@
 		006F86BD20478B8D00D713E8 /* RBAutoSizeTableViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 006F86BB20478B8D00D713E8 /* RBAutoSizeTableViewCell2.m */; };
 		006F86BE20478B8D00D713E8 /* RBAutoSizeTableViewCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 006F86BC20478B8D00D713E8 /* RBAutoSizeTableViewCell2.xib */; };
 		006F86C42047A73900D713E8 /* RBNibAutoSizeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 006F86C32047A73900D713E8 /* RBNibAutoSizeTableView.m */; };
+		0099617F2048E06400E92E0B /* RBTitleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0099617E2048E06400E92E0B /* RBTitleModel.m */; };
 		00F17C3120469EFC00A7CD39 /* RBCodeAutoSizeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F17C3020469EFC00A7CD39 /* RBCodeAutoSizeTableView.m */; };
 		00F17C3420469F3A00A7CD39 /* RBConstraintAutoSizeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F17C3320469F3A00A7CD39 /* RBConstraintAutoSizeTableView.m */; };
 		00F17C372046B71700A7CD39 /* RBTitleConstrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F17C362046B71700A7CD39 /* RBTitleConstrant.m */; };
@@ -83,6 +84,8 @@
 		006F86BC20478B8D00D713E8 /* RBAutoSizeTableViewCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RBAutoSizeTableViewCell2.xib; sourceTree = "<group>"; };
 		006F86C22047A73900D713E8 /* RBNibAutoSizeTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBNibAutoSizeTableView.h; sourceTree = "<group>"; };
 		006F86C32047A73900D713E8 /* RBNibAutoSizeTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBNibAutoSizeTableView.m; sourceTree = "<group>"; };
+		0099617D2048E06400E92E0B /* RBTitleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBTitleModel.h; sourceTree = "<group>"; };
+		0099617E2048E06400E92E0B /* RBTitleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBTitleModel.m; sourceTree = "<group>"; };
 		00F17C2F20469EFC00A7CD39 /* RBCodeAutoSizeTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBCodeAutoSizeTableView.h; sourceTree = "<group>"; };
 		00F17C3020469EFC00A7CD39 /* RBCodeAutoSizeTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBCodeAutoSizeTableView.m; sourceTree = "<group>"; };
 		00F17C3220469F3A00A7CD39 /* RBConstraintAutoSizeTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBConstraintAutoSizeTableView.h; sourceTree = "<group>"; };
@@ -204,9 +207,19 @@
 			path = RBAutoSizeTableViewDemoUITests;
 			sourceTree = "<group>";
 		};
+		0099617C2048E03500E92E0B /* TitleModel */ = {
+			isa = PBXGroup;
+			children = (
+				0099617D2048E06400E92E0B /* RBTitleModel.h */,
+				0099617E2048E06400E92E0B /* RBTitleModel.m */,
+			);
+			path = TitleModel;
+			sourceTree = "<group>";
+		};
 		00F17C2E20469EA900A7CD39 /* AutoSizeTableView */ = {
 			isa = PBXGroup;
 			children = (
+				0099617C2048E03500E92E0B /* TitleModel */,
 				00F17C3C2046BA4E00A7CD39 /* AutoSizeTableViewCell */,
 				00F17C352046B71700A7CD39 /* RBTitleConstrant.h */,
 				00F17C362046B71700A7CD39 /* RBTitleConstrant.m */,
@@ -421,6 +434,7 @@
 				003A9EE8204650210010284E /* AppDelegate.m in Sources */,
 				00F17C5E2046C04100A7CD39 /* MASConstraintMaker.m in Sources */,
 				00F17C5B2046C04100A7CD39 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				0099617F2048E06400E92E0B /* RBTitleModel.m in Sources */,
 				00F17C622046C04100A7CD39 /* MASConstraint.m in Sources */,
 				006F86BD20478B8D00D713E8 /* RBAutoSizeTableViewCell2.m in Sources */,
 				00F17C632046C04100A7CD39 /* MASViewConstraint.m in Sources */,

@@ -31,17 +31,17 @@
 
 - (void)buildData{
     
-    double allExTime = 0.0f;
-    for(int i = 0; i < kRBCodeExcuteTimes; i ++){
-        [self setupBaseData];
-        [self convertDataToModel];
-        CFAbsoluteTime startTime =CFAbsoluteTimeGetCurrent();
-        [self reloadData];
-        CFAbsoluteTime excuteTime = (CFAbsoluteTimeGetCurrent() - startTime);
-        NSLog(@"代码自适应的加载时间 %f ms", (double)excuteTime*1000.0);
-        allExTime += ((double)excuteTime*1000.0);
-    }
-    NSLog(@"代码自适应的平均加载时间 %f ms", allExTime/kRBCodeExcuteTimes);
+    //    double allExTime = 0.0f;
+    //    for(int i = 0; i < kRBCodeExcuteTimes; i ++){
+    [self setupBaseData];
+    [self convertDataToModel];
+    CFAbsoluteTime startTime =CFAbsoluteTimeGetCurrent();
+    [self reloadData];
+    CFAbsoluteTime excuteTime = (CFAbsoluteTimeGetCurrent() - startTime);
+    NSLog(@"代码自适应的加载时间 %f ms", (double)excuteTime*1000.0);
+    //        allExTime += ((double)excuteTime*1000.0);
+    //    }
+    //    NSLog(@"代码自适应的平均加载时间 %f ms", allExTime/kRBCodeExcuteTimes);
 }
 
 - (void)convertDataToModel{
@@ -52,6 +52,11 @@
         titleModel.titleLabelHeight = 0.0f;
         [self.titles replaceObjectAtIndex:idx withObject:titleModel];
     }];
+}
+
+- (void)caculateLabelHeightWithModel:(RBTitleModel *)model{
+    
+    [model calculateTitleWidth];
 }
 
 - (void)setupBaseData{
@@ -80,10 +85,7 @@
     if(!cell){
         cell = [[RBAutoSizeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:autoSizeTableViewCellID];
     }
-    //动态计算当前cell的高度
-    RBTitleModel *titleModel = [self.titles objectAtIndex:indexPath.row];
-    [titleModel calculateTitleWidth];
-    
+    [self caculateLabelHeightWithModel:[self.titles objectAtIndex:indexPath.row]];
     [cell buildData:self.titles[indexPath.row]];
     return cell;
 }

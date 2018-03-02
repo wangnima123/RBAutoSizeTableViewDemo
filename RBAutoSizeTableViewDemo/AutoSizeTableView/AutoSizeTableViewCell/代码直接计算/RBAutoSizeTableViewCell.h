@@ -10,4 +10,5 @@
 
 @interface RBAutoSizeTableViewCell : UITableViewCell
 - (void)buildData:(NSString *)title;
++ (CGFloat)calculateTitleWidth:(NSString *)title;
 @end

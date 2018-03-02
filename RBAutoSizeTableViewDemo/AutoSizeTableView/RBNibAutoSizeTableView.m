@@ -49,16 +49,16 @@
 
 - (void)buildData{
     
-//    double allExTime = 0.0f;
-//    for(int i = 0; i < kRBCodeExcuteTimes; i ++){
+    double allExTime = 0.0f;
+    for(int i = 0; i < kRBCodeExcuteTimes; i ++){
         [self setupBaseData];
         CFAbsoluteTime startTime =CFAbsoluteTimeGetCurrent();
         [self reloadData];
         CFAbsoluteTime excuteTime = (CFAbsoluteTimeGetCurrent() - startTime);
         NSLog(@"Nib+约束自适应的加载时间 %f ms", (double)excuteTime*1000.0);
-//        allExTime += ((double)excuteTime*1000.0);
-//    }
-//    NSLog(@"Nib+约束自适应的平均加载时间 %f ms", allExTime/kRBCodeExcuteTimes);
+        allExTime += ((double)excuteTime*1000.0);
+    }
+    NSLog(@"Nib+约束自适应的平均加载时间 %f ms", allExTime/kRBCodeExcuteTimes);
 }
 
 #pragma mark -
@@ -80,11 +80,11 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end
